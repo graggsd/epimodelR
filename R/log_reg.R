@@ -151,10 +151,12 @@ logreg_test <- function(data, test_vars, covars, outcome) {
         tmp_out <- tryCatch(
             logreg_test_single(test_var, data, covars, outcome),
             error = function(e) {
-                data.frame(matrix(data = c(test_var, level = "", rep(NA, 8)),
-                                  ncol = 10,
-                                  dimnames = list(test_var, col_names)),
-                           stringsAsFactors = FALSE)
+                out <-
+                    data.frame(matrix(data = c(test_var, level = "", rep(NA, 8)),
+                                      ncol = 10,
+                                      dimnames = list(test_var, col_names)),
+                               stringsAsFactors = FALSE)
+                out[, 3:10] <- as.numeric(out[, 3:10])
             }
         )
         out <- rbind(out, tmp_out)
