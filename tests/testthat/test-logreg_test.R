@@ -76,3 +76,16 @@ test_that("Wald P-values are accurate", {
                       test_out[2:3, 7])
 })
 
+test_that("Errors effect the appropriate row", {
+    test_data_2 <- test_data
+    test_data_2$independent1 <- NA
+    test_out_2 <-
+        logreg_test(test_data_2,
+                    c("independent1", "independent2"),
+                    c("covar1", "covar2"),
+                    "dependent")
+    expect_equivalent(test_out_2[1, ],
+                      c("independent1", "", rep(NA, 8)))
+})
+
+

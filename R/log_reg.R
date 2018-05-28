@@ -142,17 +142,20 @@ logreg_test_single <- function(test_var, data, covars, outcome) {
 #' @export
 logreg_test <- function(data, test_vars, covars, outcome) {
     out <- data.frame(NULL)
-    col_names <- c("test_vars", "unadj.OR", "adj.OR", "Wald.Lower", "Wald.Upper",
+    col_names <- c("test_vars", "level",
+                   "unadj.OR", "adj.OR", "Wald.Lower", "Wald.Upper",
                    "Wald.pval", "LR.Lower", "LR.Upper",
                    "LR.pval")
     for (test_var in test_vars) {
+
         tmp_out <- tryCatch(
             logreg_test_single(test_var, data, covars, outcome),
-            error = function(e) matrix(test_vars = test_var,
-                                       level = "",
-                                       rep(NA, 9),
-                                       ncol = 10,
-                                       dimnames = list(test_var, col_names))
+            error = function(e) {
+                data.frame(matrix(data = c(test_var, level = "", rep(NA, 8)),
+                                  ncol = 10,
+                                  dimnames = list(test_var, col_names)),
+                           stringsAsFactors = FALSE)
+            }
         )
         out <- rbind(out, tmp_out)
         rownames(out) <- 1:nrow(out)
