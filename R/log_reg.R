@@ -131,10 +131,10 @@ logreg_test_single <- function(test_var, data, covars, outcome) {
               get_wald_pvals(fits),
               get_lr_confints(fits),
               get_lr_pvals(fits))
-    out <- cbind(test_vars = test_var,
+    out <- cbind(test_var = test_var,
                  level = sub(paste0("^", test_var), "", rownames(out)),
                  out)
-    out$test_vars <- as.character(out$test_vars)
+    out$test_var <- as.character(out$test_var)
     out$level <- as.character(out$level)
     return(out)
 }
@@ -142,7 +142,7 @@ logreg_test_single <- function(test_var, data, covars, outcome) {
 #' @export
 logreg_test <- function(data, test_vars, covars, outcome) {
     out <- data.frame(NULL)
-    col_names <- c("test_vars", "level",
+    col_names <- c("test_var", "level",
                    "unadj.OR", "adj.OR", "Wald.Lower", "Wald.Upper",
                    "Wald.pval", "LR.Lower", "LR.Upper",
                    "LR.pval")
