@@ -84,7 +84,7 @@ test_that("Errors effect the appropriate row", {
                     c("independent1", "independent2"),
                     c("covar1", "covar2"),
                     "dependent")
-    expect_equivalent(test_out_2[1, ],
+    expect_equivalent(unlist(test_out_2[1, ]),
                       c("independent1", "", rep(NA, 8)))
 })
 

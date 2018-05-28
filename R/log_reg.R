@@ -124,6 +124,7 @@ logreg_test_single <- function(test_var, data, covars, outcome) {
         make_fits(mat, tmp_df[, outcome], test_var),
         error = function(e) NA
     )
+
     out <-
         cbind(get_unadj_ORs(fits),
               get_adj_ORs(fits),
@@ -157,6 +158,7 @@ logreg_test <- function(data, test_vars, covars, outcome) {
                                       dimnames = list(test_var, col_names)),
                                stringsAsFactors = FALSE)
                 out[, 3:10] <- as.numeric(out[, 3:10])
+                return(out)
             }
         )
         out <- rbind(out, tmp_out)
