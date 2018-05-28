@@ -16,13 +16,13 @@ mhbd_test_single <- function(test_var, data, outcome, strata) {
 
 #' @export
 mhbd_test <- function(data, test_vars, outcome, strata) {
-    out <- as.data.frame(t(sapply(test_vars,
-                                  mhbd_test_single,
-                                  data = data,
-                                  outcome = outcome,
-                                  strata = strata)))
-    rownames(out) <- 1:nrow(out)
-    out[, 1] <- as.character(out[, 1])
-    out[, 2:4] <- as.numeric(out[, 2:4])
+    out <- matrix(unlist(sapply(test_vars,
+                                mhbd_test_single,
+                                data = data,
+                                outcome = outcome,
+                                strata = strata)), ncol = 4, byrow = TRUE)
+    colnames(out) <- c("test_var", "common.OR", "MH.p.value", "BD.p.value")
+    out <- as.data.frame(out, stringsAsFactors = FALSE)
+    out[, 2:4] <- sapply(out[, 2:4], as.numeric)
     return(out)
 }
