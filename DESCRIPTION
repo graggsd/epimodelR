@@ -1,7 +1,7 @@
 Package: epimodelR
 Type: Package
 Title: Performs Standard Epidemiological Analyses
-Version: 0.1.0
+Version: 0.1.1
 Author: Stephen Gragg
 Maintainer: Stephen Gragg <graggsd@uab.edu>
 Description: The purpose of this package is to make some standard epidemiology
